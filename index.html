@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Art Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.6.0/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <style>
+        body {
+            background-color: #1a202c;
+            color: #f7fafc;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #4fd1c5;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .input-area, .output-area {
+            margin-bottom: 20px;
+        }
+        .input-area label, .output-area label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #4fd1c5;
+        }
+        .input-area input[type="file"] {
+            display: none;
+        }
+        .input-area .custom-file-upload {
+            border: 2px dashed #4fd1c5;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: rgba(79, 209, 197, 0.1);
+            transition: all 0.3s ease;
+        }
+        .input-area .custom-file-upload:hover {
+            background-color: rgba(79, 209, 197, 0.2);
+        }
+        .output-area textarea {
+            width: 100%;
+            height: 300px;
+            padding: 10px;
+            border: 2px solid #4fd1c5;
+            border-radius: 5px;
+            background-color: rgba(79, 209, 197, 0.1);
+            color: #f7fafc;
+            font-family: 'Courier New', Courier, monospace;
+            resize: none;
+        }
+        .button-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .button-container button {
+            background-color: #4fd1c5;
+            color: #1a202c;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .button-container button:hover {
+            background-color: #3eccb4;
+        }
+        .support-modal {
+            position: fixed;
+            bottom: -100%;
+            right: 20px;
+            width: 400px;
+            height: 500px;
+            background-image: linear-gradient(to right, #6b46c1, #b83280);
+            border-radius: 10px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: bottom 0.5s ease-in-out;
+        }
+        .support-modal.open {
+            bottom: 20px;
+        }
+        .support-modal iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px;
+        }
+        .support-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-image: linear-gradient(to right, #6b46c1, #b83280);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 9999px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+        }
+        .support-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -3px rgba(0, 0, 0, 0.1), 0 6px 10px -2px rgba(0, 0, 0, 0.05);
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-image: linear-gradient(to right, #6b46c1, #b83280);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+        .close-btn:hover {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="h-screen flex flex-col justify-center items-center bg-gradient-to-r from-purple-500 to-pink-500">
+        <h1 class="text-6xl font-bold text-white mb-8">Welcome to My Website</h1>
+        <p class="text-2xl text-white mb-12">Explore our amazing features and services</p>
+        <button class="support-btn">Contact Support</button>
+        <div class="support-modal">
+            <div class="close-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </div>
+            <div class="p-4">
+                <h2 class="text-lg font-bold mb-2">Contact Support</h2>
+                <p class="text-gray-600 mb-4">Please enter your message below:</p>
+                <textarea id="support-message" class="w-full h-32 p-2 text-gray-600 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"></textarea>
+                <button id="send-message-btn" class="mt-4 py-2 px-4 bg-gray-600 text-white rounded focus:outline-none focus:ring-2 focus:ring-gray-600">Send Message</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const supportBtn = document.querySelector('.support-btn');
+        const supportModal = document.querySelector('.support-modal');
+        const closeBtn = document.querySelector('.close-btn');
+        const sendMessageBtn = document.querySelector('#send-message-btn');
+
+        supportBtn.addEventListener('click', () => {
+            supportModal.classList.toggle('open');
+            gsap.to(supportModal, { duration: 0.5, bottom: supportModal.classList.contains('open') ? '20px' : '-100%' });
+        });
+
+        closeBtn.addEventListener('click', () => {
+            supportModal.classList.remove('open');
+            gsap.to(supportModal, { duration: 0.5, bottom: '-100%' });
+        });
+
+        sendMessageBtn.addEventListener('click', () => {
+            const message = document.querySelector('#support-message').value;
+            const webhookUrl = 'https://discord.com/api/webhooks/1288494125414350900/kAgUwoznCdnwFHXtnVxfmosLhH49H-v9Vf5BctifIoG6EpwrokPfCuOiKwOc5LaJ82lY';
+            const payload = {
+                content: message,
+            };
+
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            })
+            .then((response) => response.json())
+            .then((data) => console.log(data))
+            .catch((error) => console.error(error));
+
+            document.querySelector('#support-message').value = '';
+        });
+    </script>
+</body>
+</html>
